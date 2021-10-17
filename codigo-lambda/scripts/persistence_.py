@@ -1,6 +1,7 @@
 import pymysql
+import os
 
-config = {}
+config = os.environ['CONFIG_DB']
 
 class Persistence:
     def __init__(self):
@@ -22,7 +23,8 @@ class Persistence:
   
   
     def insert_data(self, values, table_name):
-        query = (f"""INSERT INTO `{table_name}` (fecha,ruta,ticket,ocupacion,src,dst,d_src,d_dst,realizado,estado) 
+        query = (f"""INSERT INTO `{table_name}` 
+                (fecha,ruta,ticket,ocupacion,src,dst,d_src,d_dst,realizado,estado) 
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""")
         val = values
         self.cursor.executemany(query, val)
